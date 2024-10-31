@@ -1,0 +1,13 @@
+### CREATE SINGUP USER
+
+POST  http://localhost:3000
+Content-Type: application/json
+
+{
+    "email": "abouramd1337@gmail.com",
+    "password" : "jsflasjdflj45413513@"
+}
+
+#### GET ALL ANALYTICS FROM DB
+
+GET http://localhost:3000/analytics
