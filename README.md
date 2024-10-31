@@ -1,4 +1,4 @@
-```txt
+
 Microservices with NestJS: A Guide
 Overview
 Microservices architecture in NestJS is designed to break down monolithic applications into smaller, 
@@ -7,7 +7,6 @@ providing out-of-the-box support for various communication protocols and transpo
 This guide introduces the fundamentals of microservices in NestJS, common patterns, and practical steps for implementation.
 
 For further details, see the official NestJS microservices documentation.
-```
 
 Key Concepts in NestJS Microservices
 1. Transport Layer
@@ -19,7 +18,8 @@ RabbitMQ and NATS: Allow message queuing, which is beneficial for event-driven a
 gRPC: Good for low-latency, high-performance RPC (Remote Procedure Call) communication.
 2. Message Patterns
 Request/Response: Synchronous communication where a service sends a request and waits for a response.
-Event-Driven (Pub/Sub): Asynchronous communication where services emit events without waiting for responses. Other services subscribe to relevant events and respond as needed.
+Event-Driven (Pub/Sub): Asynchronous communication where services emit events without waiting for responses. 
+Other services subscribe to relevant events and respond as needed.
 
 
 
@@ -41,7 +41,10 @@ import { AppModule } from './app.module';
 async function bootstrap() {
     const app = await NestFactory.createMicroservice<MicroserviceOptions>(AppModule, {
         transport: Transport.TCP,
-        options: { host: '127.0.0.1', port: 3001 }
+        options: {
+                    host: '127.0.0.1',
+                    port: 3001
+                 }
     });
     await app.listen();
 }
@@ -58,7 +61,14 @@ import { OrderController } from './order.controller';
 @Module({
   imports: [
     ClientsModule.register([
-      { name: 'USER_SERVICE', transport: Transport.TCP, options: { host: '127.0.0.1', port: 3001 } }
+      {
+            name: 'USER_SERVICE',
+            transport: Transport.TCP,
+            options:
+                    {
+                        host: '127.0.0.1', port: 3001
+                    }
+     }
     ])
   ],
   controllers: [OrderController]
