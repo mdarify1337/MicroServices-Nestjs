@@ -19,6 +19,8 @@ gRPC: Good for low-latency, high-performance RPC (Remote Procedure Call) communi
 Request/Response: Synchronous communication where a service sends a request and waits for a response.
 Event-Driven (Pub/Sub): Asynchronous communication where services emit events without waiting for responses. Other services subscribe to relevant events and respond as needed.
 
+
+
 Setting Up Microservices in NestJS
 Step 1: Create Separate Services
 NestJS encourages structuring each microservice as an independent NestJS application. To start:
@@ -26,6 +28,9 @@ nest new user-service
 nest new order-service
 Step 2: Configure Transport
 Define the communication protocol for each microservice. For example, setting up a microservice using TCP:
+
+This creates a UserService that listens on TCP port 3001. The same process can be followed to configure other services.
+```tsx
 // main.ts for User Service
 import { NestFactory } from '@nestjs/core';
 import { MicroserviceOptions, Transport } from '@nestjs/microservices';
@@ -39,8 +44,7 @@ async function bootstrap() {
     await app.listen();
 }
 bootstrap();
-This creates a UserService that listens on TCP port 3001. The same process can be followed to configure other services.
-
+```
 Step 3: Set up Client Connections
 To connect to the microservices, you need to configure client modules in services or gateways that interact with them. Here’s an example using the TCP transport:
 // order-service.module.ts in Order Service
