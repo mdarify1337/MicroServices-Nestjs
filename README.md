@@ -47,6 +47,7 @@ bootstrap();
 ```
 Step 3: Set up Client Connections
 To connect to the microservices, you need to configure client modules in services or gateways that interact with them. Here’s an example using the TCP transport:
+```tsx
 // order-service.module.ts in Order Service
 import { Module } from '@nestjs/common';
 import { ClientsModule, Transport } from '@nestjs/microservices';
@@ -61,10 +62,12 @@ import { OrderController } from './order.controller';
   controllers: [OrderController]
 })
 export class OrderServiceModule {}
+```
 Step 4: Communicate Between Services
 For communication, you can use Request/Response or Event-Based messaging patterns:
 
 Request/Response Example:
+```tsx
 // Inside a service or controller
 @Inject('USER_SERVICE') private readonly client: ClientProxy;
 
@@ -73,8 +76,10 @@ getUserData(id: string) {
 }
 Event-Based Example:
 this.client.emit('order_created', orderData);
+```
 Step 5: Implement a Gateway
 To create an API Gateway for routing requests to the correct microservice:
+```tsx
 import { Controller, Get, Inject, Param } from '@nestjs/common';
 import { ClientProxy } from '@nestjs/microservices';
 
@@ -87,6 +92,7 @@ export class ApiController {
     return this.orderClient.send({ cmd: 'get_order' }, id);
   }
 }
+```
 6. Error Handling
 NestJS allows centralized error handling across microservices by using interceptors or filters, ensuring consistent error responses.
 
